@@ -5,7 +5,6 @@ using TaskManagement.Infrastructure.DatabaseContext;
 using TaskManagement.Infrastructure.Repositories;
 using System.Text;
 using TaskManagement.Infrastructure.Services;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using TaskManagement.Core.Domain.Identities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

@@ -62,10 +62,10 @@ namespace TaskManagement.Core.Services
 
         private string GenerateJwtToken(IEnumerable<Claim> claims)
         {
-            // Define your secret key, which should be kept safe and secure
-            var secretKey = "Secret"; // Example, use a more secure key in production!
+          
+            var secretKey = "Secret";
 
-            // Create symmetric security key from the secret key
+            // Creating symmetric security key from the secret key
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
             // Create signing credentials
@@ -77,13 +77,13 @@ namespace TaskManagement.Core.Services
             // Create the JWT token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(claims), // Include claims (name, role, etc.)
-                Expires = expiration, // Set expiration time for the token
-                SigningCredentials = signingCredentials // Define signing credentials
+                Subject = new ClaimsIdentity(claims), 
+                Expires = expiration, 
+                SigningCredentials = signingCredentials 
             };
 
             // Initialize JwtSecurityTokenHandler to create the token
-            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             // Return the token as a string
