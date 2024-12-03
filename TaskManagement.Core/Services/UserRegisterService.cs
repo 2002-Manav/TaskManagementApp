@@ -1,26 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Core.Domain.Entities;
-using TaskManagement.Core.DTOs;
 using TaskManagement.Core.Interfaces;
+using TaskManagement.Core.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 namespace TaskManagement.Core.Services
 {
-    public class UserRegisterService :  IUserRegisterService
+    public class UserRegisterService : IUserRegisterService
     {
         private IUserRepository _userRepository;
+        private readonly PasswordHasher<User> _passwordHasher;
 
-        public UserRegisterService(IUserRepository userRepository )
+        // Inject PasswordHasher and UserRepository
+        public UserRegisterService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+            _passwordHasher = new PasswordHasher<User>();
         }
 
-   
-
-        //new
         /// <summary>
         /// Register a user
         /// </summary>
@@ -29,35 +28,30 @@ namespace TaskManagement.Core.Services
         /// <exception cref="ArgumentException"></exception>
         public async Task<bool> UserRegisterAsync(UserRegisterRequest request)
         {
-            // validation of user
+            // Validation
             if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
                 throw new ArgumentException("Invalid user data.");
 
-            //checking if user exists
+            // Check if user already exists
             var existingUser = await _userRepository.GetUserByEmailAsync(request.UserEmail);
+            if (existingUser != null)
+                throw new ArgumentException("User already exists.");
 
-            // hashing the password
-            var hashedPassword = HashPassword(request.Password);
+            // Hash the password
+            var hashedPassword = _passwordHasher.HashPassword(null, request.Password);
 
-   
-            //new user
+            // Create new user
             var newUser = new User
             {
                 UserId = Guid.NewGuid(),
                 UserName = request.UserName,
                 UserEmail = request.UserEmail,
                 Password = hashedPassword,
-                Role = request.Role
+                Role = request.Role 
             };
 
-            //save in db
+            // Save user to the database
             return await _userRepository.AddUserAsync(newUser);
-        }
-
-        private string HashPassword(string password)
-        {
-            
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
         }
     }
 }

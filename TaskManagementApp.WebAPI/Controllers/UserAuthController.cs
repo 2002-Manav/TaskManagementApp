@@ -20,15 +20,17 @@ namespace TaskManagement.UI.Controllers
         private readonly IUserRegisterService _userRegisterService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _config;
 
         // Injecting services into the controller
         public UserAuthController(IUserLoginService userLoginService, IUserRegisterService userRegisterService,
-                                  UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+                                  UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration config)
         {
             _userLoginService = userLoginService;
             _userRegisterService = userRegisterService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _config = config;
         }
 
         // Register API
@@ -75,25 +77,43 @@ namespace TaskManagement.UI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] UserLoginRequest request)
         {
-            // Find user by email
             var user = await _userManager.FindByEmailAsync(request.UserEmail);
-
-            // unauth.
-            if (user == null)
+            if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
             {
-                return Unauthorized("Invalid email or password.");
+                return Unauthorized(new { Message = "Invalid credentials." });
             }
 
-            // Checking password
-            var result = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
+            var roles = await _userManager.GetRolesAsync(user);
 
-            if (result.Succeeded)
+            // Create JWT claims
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Name, user.UserName),
+        new Claim(ClaimTypes.Email, user.Email)
+    };
+
+            foreach (var role in roles)
             {
-                return Ok(new { Message = "Login successful!" });
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-           //return invalid auth.
-            return Unauthorized("Invalid email or password.");
+            // Create JWT token
+            var jwtSettings = _config.GetSection("JwtSettings");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["TokenExpiryMinutes"])),
+                signingCredentials: creds
+            );
+
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return Ok(new { Token = tokenString, Expiration = token.ValidTo });
         }
 
 

@@ -4,6 +4,7 @@ using TaskManagement.Core.Interfaces;
 using System.Threading.Tasks;
 using System.Linq;
 using TaskManagement.Core.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TaskManagementApp.WebAPI.Controllers
 {
@@ -25,6 +26,7 @@ namespace TaskManagementApp.WebAPI.Controllers
         /// <param name="userId"></param>
         /// <param name="status"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetTasks([FromQuery] Guid? userId, [FromQuery] string? status)
         {
@@ -38,6 +40,8 @@ namespace TaskManagementApp.WebAPI.Controllers
         /// </summary>
         /// <param name="taskRequest"></param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateTask([FromBody] TaskRequest taskRequest)
         {
