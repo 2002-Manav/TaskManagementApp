@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagementApp.WebAPI", "TaskManagementApp.WebAPI\TaskManagementApp.WebAPI.csproj", "{607FCCED-99B6-4B89-A822-C1113E1BCFD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Infrastructure", "TaskManagement.Infrastructure\TaskManagement.Infrastructure.csproj", "{288C4170-CBC1-4328-9977-71293425FF37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F3B6EE73-3C32-4C68-85DA-4187E9ED7BE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Core", "TaskManagement.Core\TaskManagement.Core.csproj", "{F0D28670-0633-446A-A36B-E7BE4DA50336}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{607FCCED-99B6-4B89-A822-C1113E1BCFD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{607FCCED-99B6-4B89-A822-C1113E1BCFD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{607FCCED-99B6-4B89-A822-C1113E1BCFD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{607FCCED-99B6-4B89-A822-C1113E1BCFD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288C4170-CBC1-4328-9977-71293425FF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288C4170-CBC1-4328-9977-71293425FF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288C4170-CBC1-4328-9977-71293425FF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288C4170-CBC1-4328-9977-71293425FF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0D28670-0633-446A-A36B-E7BE4DA50336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0D28670-0633-446A-A36B-E7BE4DA50336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0D28670-0633-446A-A36B-E7BE4DA50336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0D28670-0633-446A-A36B-E7BE4DA50336}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{607FCCED-99B6-4B89-A822-C1113E1BCFD7} = {F3B6EE73-3C32-4C68-85DA-4187E9ED7BE7}
+		{288C4170-CBC1-4328-9977-71293425FF37} = {F3B6EE73-3C32-4C68-85DA-4187E9ED7BE7}
+		{F0D28670-0633-446A-A36B-E7BE4DA50336} = {F3B6EE73-3C32-4C68-85DA-4187E9ED7BE7}
+	EndGlobalSection
+EndGlobal

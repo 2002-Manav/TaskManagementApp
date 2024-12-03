@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TaskManagementApp.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:TaskManagementApp.WebAPI.Controllers.TaskController.GetTasks(System.Nullable{System.Guid},System.String)">
+            <summary>
+            To Get All Tasks
+            </summary>
+            <param name="userId"></param>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagementApp.WebAPI.Controllers.TaskController.CreateTask(TaskManagement.Core.DTOs.TaskRequest)">
+            <summary>
+            To create a task for a User
+            </summary>
+            <param name="taskRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagementApp.WebAPI.Controllers.TaskController.GetTaskById(System.Int32)">
+            <summary>
+            To get a task by taskId
+            </summary>
+            <param name="taskId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagementApp.WebAPI.Controllers.TaskController.UpdateTask(System.Int32,TaskManagement.Core.DTOs.TaskRequest)">
+            <summary>
+            To update a task using taskId
+            </summary>
+            <param name="taskId"></param>
+            <param name="taskRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagementApp.WebAPI.Controllers.TaskController.DeleteTask(System.Int32)">
+            <summary>
+            To delete a task using taskId
+            </summary>
+            <param name="taskId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagementApp.WebAPI.Controllers.TaskController.SearchTasks(System.String)">
+            <summary>
+            To Search a task by a keyword(from taskname or decription)
+            </summary>
+            <param name="keyword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagement.UI.Controllers.UserAuthController.RegisterUser(TaskManagement.Core.DTOs.UserRegisterRequest)">
+            <summary>
+            User Register
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagement.UI.Controllers.UserAuthController.LoginAsync(TaskManagement.Core.DTOs.UserLoginRequest)">
+            <summary>
+            User Login
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
